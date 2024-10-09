@@ -9,6 +9,7 @@ This project is a FastAPI application integrated with Ollama, PGVectorDB, and Re
 ### Prerequisites
 
 - Docker and Docker Compose installed on your machine.
+- Python 3.10.15 or higher installed on your machine.
 - A GPU (optional) for enhanced performance.
 
 ### Environment Configuration
@@ -25,6 +26,18 @@ This project is a FastAPI application integrated with Ollama, PGVectorDB, and Re
     cp .env.example .env
     ```
     Edit .env as necessary to configure your environment settings.
+
+3. Activate the virtual environment:
+
+    - If you have Pipenv installed, you can activate the virtual environment with:
+    ```bash
+    pipenv shell
+    ```
+
+    - If you do not have Pipenv, you can install the required packages using requirements.txt:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ## Starting the Application
 To start the FastAPI application with Docker Compose, you can use the provided start.sh script:

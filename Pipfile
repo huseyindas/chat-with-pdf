@@ -27,7 +27,6 @@ pytest = "*"
 httpx = "*"
 pip = "*"
 install = "*"
-reportlab = "*"
 
 [dev-packages]
 

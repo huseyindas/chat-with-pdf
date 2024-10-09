@@ -4,6 +4,7 @@ RUN apt-get update && apt-get -y install \
     build-essential \
     libpq-dev \
     python3-dev \
+    curl \
     && apt-get clean
 
 WORKDIR /app

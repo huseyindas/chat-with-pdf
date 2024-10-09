@@ -21,6 +21,13 @@ limits = "*"
 aioredis = "*"
 pydantic-settings = "*"
 redis = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
+pytest = "*"
+httpx = "*"
+pip = "*"
+install = "*"
+reportlab = "*"
 
 [dev-packages]
 

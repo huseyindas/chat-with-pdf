@@ -13,7 +13,7 @@ router = APIRouter()
     description="Endpoint for uploading and registering a PDF",
     response_model=UploadPDFResponse
 )
-@limiter.limit("1/minute")
+@limiter.limit("3/minute")
 async def upload_pdf(request: Request, file: UploadFile):
     if file.content_type != "application/pdf":
         raise HTTPException(

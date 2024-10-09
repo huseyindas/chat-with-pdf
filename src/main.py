@@ -7,6 +7,7 @@ from chat import routes as chat_routes
 from core import routes as core_routes
 from pdf import routes as pdf_routes
 from core.middlewares import (
+    CustomHealthCheckMiddleware,
     CustomErrorHandlingMiddleware,
     CustomTimeoutHandlingMiddleware
 )
@@ -33,6 +34,7 @@ app = FastAPI(
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+app.add_middleware(CustomHealthCheckMiddleware)
 app.add_middleware(CustomErrorHandlingMiddleware)
 app.add_middleware(CustomTimeoutHandlingMiddleware)
 

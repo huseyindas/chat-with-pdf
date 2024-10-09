@@ -9,8 +9,37 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.exceptions import RequestValidationError
 
+from core.heatlh import health_check
+
 
 REQUEST_TIMEOUT_ERROR = 120  # seconds
+
+
+class CustomHealthCheckMiddleware(BaseHTTPMiddleware):
+    bypass_routes = [
+        "/v1/health"
+    ]
+
+    async def dispatch(self, request: Request, call_next):
+        try:
+            health_status = health_check()
+            if health_status["status_code"] == 500:
+                if request.url.path not in CustomHealthCheckMiddleware.bypass_routes:
+                    return JSONResponse(
+                        status_code=503,
+                        content={
+                            'detail': 'Service is unavailable! Try again later.',
+                        },
+                    )
+            response = await call_next(request)
+            return response
+        except asyncio.TimeoutError:
+            return JSONResponse(
+                status_code=503,
+                content={
+                    'detail': 'Service is unavailable! Try again later.',
+                },
+            )
 
 
 class CustomErrorHandlingMiddleware(BaseHTTPMiddleware):

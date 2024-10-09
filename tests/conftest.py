@@ -14,16 +14,12 @@ from core.database import get_db
 from core.config import settings
 
 
-# Create a SQLAlchemy engine
 engine = create_engine(settings.database_url)
-
-# Create a sessionmaker to manage sessions
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 @pytest.fixture(scope="function")
 def db_session():
-    """Create a new database session with a rollback at the end of the test."""
     connection = engine.connect()
     transaction = connection.begin()
     session = TestingSessionLocal(bind=connection)
@@ -35,7 +31,6 @@ def db_session():
 
 @pytest.fixture(scope="function")
 def test_client(db_session):
-    """Create a test client that uses the override_get_db fixture to return a session."""
 
     def override_get_db():
         try:

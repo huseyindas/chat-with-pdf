@@ -2,7 +2,6 @@ import re
 
 
 def is_valid_uuid4(uuid_string):
-    """Geçerli bir UUID-4 olup olmadığını kontrol edin."""
     regex = r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
     return re.match(regex, uuid_string) is not None
 

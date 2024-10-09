@@ -1,0 +1,7 @@
+import os
+
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL")
+OLLAMA_HOST = os.getenv("OLLAMA_HOST")
+PGVECTOR_DSN = os.getenv("PGVECTOR_DSN")
+
+MAX_FILE_SIZE_UPLOAD = 10485760  # 10MB

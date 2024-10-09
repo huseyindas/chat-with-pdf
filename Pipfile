@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+uvicorn = "*"
+sqlalchemy = "*"
+pydantic = "*"
+requests = "*"
+python-dotenv = "*"
+fastapi = {extras = ["standard"], version = "*"}
+python-multipart = "*"
+langchain = "*"
+langchain-community = "*"
+pypdf = "*"
+langchain-postgres = "*"
+langchain-ollama = "*"
+slowapi = "*"
+limits = "*"
+aioredis = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

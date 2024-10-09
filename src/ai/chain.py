@@ -1,24 +1,20 @@
-import logging
-
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_postgres.vectorstores import _get_embedding_collection_store
 
-from core.llm import LLM
-from core.pgvector import PGVectorUtils
-from core.consts import PGVECTOR_DSN
-
-
-logger = logging.getLogger(__name__)
+from ai.llm import LLM
+from ai.pgvector import PGVectorUtils
+from core.config import settings
+from core.logging import logger
 
 
 class Chain:
 
     def __init__(self) -> None:
         self.llm = LLM()
-        self.vectorstore_utils = PGVectorUtils(PGVECTOR_DSN)
+        self.vectorstore_utils = PGVectorUtils(settings.database_url)
 
     def get_chat_template(self):
         prompt = ChatPromptTemplate.from_messages([
@@ -27,8 +23,7 @@ class Chain:
                 "You are an assistant for question-answering tasks. "
                 "Use the following pieces of retrieved context to answer "
                 "the question. If you don't know the answer, say that you "
-                "don't know. Use three sentences maximum and keep the "
-                "answer concise."
+                "don't know."
                 "\n\n"
                 "{context}"
             ),
@@ -65,4 +60,7 @@ class Chain:
             .filter(embedding_model.cmetadata["pdf_id"].astext == source.hex)
             .all()
         )
-        return False if docs == [] else True
+        result = False if docs == [] else True
+        if not result:
+            logger.warning("No document with this pdf id was found.")
+        return result

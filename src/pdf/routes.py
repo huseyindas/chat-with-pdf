@@ -1,9 +1,9 @@
 from fastapi import APIRouter, UploadFile, HTTPException, Request
 
-from core.loader import Loader
-from core.consts import MAX_FILE_SIZE_UPLOAD
+from ai.loader import Loader
 from pdf.schemas import UploadPDFResponse
 from core.rate_limiter import limiter
+from core.config import settings
 
 router = APIRouter()
 
@@ -21,12 +21,13 @@ async def upload_pdf(request: Request, file: UploadFile):
             detail="Please upload a PDF file!"
         )
 
-    if file.size > MAX_FILE_SIZE_UPLOAD:
+    if file.size > settings.max_file_size_upload:
         raise HTTPException(
             status_code=413,
             detail=(
                 "The PDF file you want to upload "
-                f"cannot be larger than {MAX_FILE_SIZE_UPLOAD/1024/1024}MB!"
+                "cannot be larger than "
+                f"{settings.max_file_size_upload/1024/1024}MB!"
             )
         )
 

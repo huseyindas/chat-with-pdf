@@ -1,15 +1,15 @@
 from ollama import Client
 from langchain_ollama import ChatOllama
 
-from core.consts import OLLAMA_HOST, OLLAMA_MODEL
+from core.config import settings
 
 
 class LLM:
 
     def __init__(
         self,
-        model: str = OLLAMA_MODEL,
-        host: str = OLLAMA_HOST
+        model: str = settings.ollama_model,
+        host: str = settings.ollama_host
     ) -> None:
 
         self.model = model

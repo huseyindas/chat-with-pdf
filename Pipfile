@@ -19,6 +19,8 @@ langchain-ollama = "*"
 slowapi = "*"
 limits = "*"
 aioredis = "*"
+pydantic-settings = "*"
+redis = "*"
 
 [dev-packages]
 

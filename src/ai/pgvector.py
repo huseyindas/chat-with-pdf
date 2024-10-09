@@ -1,17 +1,12 @@
-import logging
-
 from langchain_postgres import PGVector
 
-from core.embedding import CustomOllamaEmbeddings
-from core.consts import PGVECTOR_DSN
-
-
-logger = logging.getLogger(__name__)
+from ai.embedding import CustomOllamaEmbeddings
+from core.config import settings
 
 
 class PGVectorUtils:
 
-    def __init__(self, pgvector_dsn: str = PGVECTOR_DSN) -> None:
+    def __init__(self, pgvector_dsn: str = settings.database_url) -> None:
         self.pgvector_dsn = pgvector_dsn
         self.embedding = CustomOllamaEmbeddings()
         self.retriever_score_threshold = 0.5

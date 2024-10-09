@@ -6,11 +6,8 @@ from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
 
-from core.pgvector import PGVectorUtils
-from core.consts import PGVECTOR_DSN
-
-
-logger = logging.getLogger(__name__)
+from ai.pgvector import PGVectorUtils
+from core.config import settings
 
 
 class Loader:
@@ -19,7 +16,7 @@ class Loader:
         self.pdf_id = uuid.uuid4()
         self.file = file
         self.file_location = f"tmp/documents/{file.filename}"
-        self.vectorstore_utils = PGVectorUtils(PGVECTOR_DSN)
+        self.vectorstore_utils = PGVectorUtils(settings.database_url)
         self.manage_directory("create")
 
     def manage_directory(self, action):
